@@ -181,7 +181,7 @@ MIT License
 
 ## 联系方式
 
-- 项目主页：[GitHub 仓库地址]
+- 项目主页：[https://github.com/WLHomework/AI-Scan]
 - 问题反馈：[Issues 页面]
 - 邮件联系：[1010693922@qq.com]
 

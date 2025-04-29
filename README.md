@@ -182,7 +182,7 @@ MIT License
 ## 联系方式
 
 - 项目主页：[https://github.com/WLHomework/AI-Scan]
-- 问题反馈：[Issues 页面]
+- 问题反馈：[https://github.com/WLHomework/AI-Scan/issues]
 - 邮件联系：[1010693922@qq.com]
 
 ## 更新日志

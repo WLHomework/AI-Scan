@@ -1,0 +1,55 @@
+{
+  "name": "windows11-camera-backup",
+  "version": "1.0.0",
+  "description": "Windows 11风格的智能摄像应用",
+  "main": "index.html",
+  "window": {
+    "title": "相机",
+    "width": 1280,
+    "height": 720,
+    "min_width": 800,
+    "min_height": 600,
+    "frame": false,
+    "transparent": true,
+    "toolbar": false,
+    "icon": "assets/camera-icon.svg",
+    "show": false,
+    "position": "center",
+    "show_in_taskbar": true,
+    "kiosk": false,
+    "fullscreen": false,
+    "resizable": true,
+    "always_on_top": false,
+    "visible_on_all_workspaces": false,
+    "chromium-args": "--enable-usermedia-screen-capturing --allow-file-access-from-files --allow-file-access --allow-cross-origin-auth-prompt --unsafely-treat-insecure-origin-as-secure=file://* --disable-features=TouchpadAndWheelScrollLatching --enable-features=TouchpadAsyncPinchEvents --enable-logging=stderr"
+  },
+  "scripts": {
+    "start": "nw .",
+    "dev": "nw .",
+    "test": "nw . test-window.html"
+  },
+  "dependencies": {
+    "@panzoom/panzoom": "^4.6.0",
+    "nw": "^0.77.0"
+  },
+  "permissions": [
+    "videoCapture",
+    "audioCapture",
+    "mediaDevices",
+    "camera",
+    "debugger"
+  ],
+  "webview": {
+    "partitions": [
+      {
+        "name": "trusted",
+        "accessible_resources": [
+          "<all_urls>"
+        ]
+      }
+    ]
+  },
+  "devDependencies": {
+    "devtron": "^1.4.0"
+  }
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>媒体库</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/gallery.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+</head>
+<body>
+    <div class="gallery-container">
+        <!-- 主内容区 -->
+        <div class="gallery-content">
+            <!-- 侧边栏 -->
+            <div class="gallery-sidebar">
+                <button class="sidebar-item active" data-type="all">
+                    <span class="material-symbols-outlined">photo_library</span>
+                    <span>全部</span>
+                </button>
+                <button class="sidebar-item" data-type="photos">
+                    <span class="material-symbols-outlined">photo</span>
+                    <span>照片</span>
+                </button>
+                <button class="sidebar-item" data-type="videos">
+                    <span class="material-symbols-outlined">videocam</span>
+                    <span>视频</span>
+                </button>
+                <button class="sidebar-item" data-type="favorites">
+                    <span class="material-symbols-outlined">favorite</span>
+                    <span>收藏</span>
+                </button>
+            </div>
+
+            <!-- 媒体区域 -->
+            <div class="gallery-main">
+                <!-- 工具栏 -->
+                <div class="gallery-toolbar">
+                    <div class="filter-container">
+                        <button class="filter-btn active" data-period="all">全部</button>
+                        <button class="filter-btn" data-period="today">今天</button>
+                        <button class="filter-btn" data-period="week">本周</button>
+                        <button class="filter-btn" data-period="month">本月</button>
+                    </div>
+                    <div class="search-container">
+                        <div class="search-input-group">
+                            <span class="material-symbols-outlined">search</span>
+                            <input type="text" placeholder="搜索媒体" class="search-input">
+                        </div>
+                        <button class="sort-btn">
+                            <span class="material-symbols-outlined">sort</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 媒体网格 -->
+                <div class="media-container">
+                    <div class="date-section">
+                        <h3 class="date-header">今天</h3>
+                        <div class="media-grid">
+                            <!-- 这里动态添加媒体项 -->
+                            <div class="media-item" data-type="photo">
+                                <div class="media-thumbnail">
+                                    <img src="assets/placeholder.jpg" alt="照片">
+                                </div>
+                                <div class="media-overlay">
+                                    <div class="media-date">2023/04/04 14:32</div>
+                                    <div class="media-actions">
+                                        <button class="action-btn favorite-btn" title="收藏">
+                                            <span class="material-symbols-outlined">favorite_border</span>
+                                        </button>
+                                        <button class="action-btn delete-btn" title="删除">
+                                            <span class="material-symbols-outlined">delete</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media-item" data-type="video">
+                                <div class="media-thumbnail">
+                                    <img src="assets/video_placeholder.jpg" alt="视频">
+                                    <div class="video-indicator">
+                                        <span class="material-symbols-outlined">play_arrow</span>
+                                    </div>
+                                    <div class="video-duration">0:32</div>
+                                </div>
+                                <div class="media-overlay">
+                                    <div class="media-date">2023/04/04 14:30</div>
+                                    <div class="media-actions">
+                                        <button class="action-btn favorite-btn" title="收藏">
+                                            <span class="material-symbols-outlined">favorite_border</span>
+                                        </button>
+                                        <button class="action-btn delete-btn" title="删除">
+                                            <span class="material-symbols-outlined">delete</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="date-section">
+                        <h3 class="date-header">昨天</h3>
+                        <div class="media-grid">
+                            <!-- 昨天的媒体项 -->
+                            <div class="media-item" data-type="photo">
+                                <div class="media-thumbnail">
+                                    <img src="assets/placeholder2.jpg" alt="照片">
+                                </div>
+                                <div class="media-overlay">
+                                    <div class="media-date">2023/04/03 18:45</div>
+                                    <div class="media-actions">
+                                        <button class="action-btn favorite-btn" title="收藏">
+                                            <span class="material-symbols-outlined">favorite_border</span>
+                                        </button>
+                                        <button class="action-btn delete-btn" title="删除">
+                                            <span class="material-symbols-outlined">delete</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 媒体查看器 -->
+    <div class="media-viewer">
+        <div class="viewer-header">
+            <button class="viewer-back-btn" title="返回">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <div class="viewer-title">媒体查看器</div>
+            <div class="ai-toolbar">
+                <button class="ai-tool-btn" data-tool="ocr" title="文字识别">
+                    <span class="material-symbols-outlined">text_format</span>
+                </button>
+                <button class="ai-tool-btn" data-tool="translate" title="双语翻译">
+                    <span class="material-symbols-outlined">translate</span>
+                </button>
+                <button class="ai-tool-btn" data-tool="understand" title="图片理解">
+                    <span class="material-symbols-outlined">psychology</span>
+                </button>
+                <button class="ai-tool-btn" data-tool="tags" title="生成标签">
+                    <span class="material-symbols-outlined">tag</span>
+                </button>
+                <button class="ai-tool-btn" data-tool="enhance" title="图像增强">
+                    <span class="material-symbols-outlined">auto_fix_high</span>
+                </button>
+                <button class="ai-tool-btn" data-tool="autocrop" title="自动裁剪">
+                    <span class="material-symbols-outlined">crop</span>
+                </button>
+                <button class="ai-tool-btn" data-tool="manualcrop" title="手动裁剪">
+                    <span class="material-symbols-outlined">crop_free</span>
+                </button>
+                <button class="ai-tool-btn" data-tool="rotateleft" title="向左旋转">
+                    <span class="material-symbols-outlined">rotate_left</span>
+                </button>
+                <button class="ai-tool-btn" data-tool="rotateright" title="向右旋转">
+                    <span class="material-symbols-outlined">rotate_right</span>
+                </button>
+                <button class="ai-tool-btn" data-tool="undo" title="撤销" id="undo-btn" disabled>
+                    <span class="material-symbols-outlined">undo</span>
+                </button>
+            </div>
+            <div class="viewer-actions">
+                <button class="viewer-action-btn viewer-favorite-btn" title="收藏">
+                    <span class="material-symbols-outlined">favorite_border</span>
+                </button>
+                <button class="viewer-action-btn viewer-delete-btn" title="删除">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="ai-result-panel">
+            <div class="ai-panel-header">
+                <div class="ai-panel-title">
+                    <span class="ai-panel-icon material-symbols-outlined">psychology</span>
+                    <span class="ai-panel-text">AI 分析结果</span>
+                </div>
+                <button class="ai-panel-close">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="ai-panel-content">
+                <!-- 内容将动态填充 -->
+                <div class="ai-loading">
+                    <div class="ai-loading-spinner"></div>
+                    <div class="ai-loading-text">正在处理...</div>
+                </div>
+            </div>
+            <div class="ai-panel-footer">
+                <button class="ai-action-btn">取消</button>
+                <button class="ai-action-btn primary">应用</button>
+            </div>
+        </div>
+        
+        <div class="viewer-content">
+            <button class="nav-btn prev-btn">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <div class="media-display">
+                <!-- 这里显示当前媒体 -->
+                <img id="current-image" src="" alt="当前媒体" style="display: none;">
+                <video id="current-video" controls style="display: none;">
+                    <source src="" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+            </div>
+            <button class="nav-btn next-btn">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+        </div>
+        <div class="viewer-footer">
+            <div class="media-info">
+                <div class="media-timestamp">2023年4月4日 14:32</div>
+                <div class="media-location">广州市</div>
+            </div>
+            <div class="media-thumbnails">
+                <!-- 这里显示缩略图导航 -->
+                <div class="thumbnail-item active">
+                    <img src="assets/placeholder.jpg" alt="缩略图1">
+                </div>
+                <div class="thumbnail-item">
+                    <img src="assets/video_placeholder.jpg" alt="缩略图2">
+                    <div class="thumbnail-video-indicator"></div>
+                </div>
+                <div class="thumbnail-item">
+                    <img src="assets/placeholder2.jpg" alt="缩略图3">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="lib/opencv.js"></script>
+    <script src="node_modules/@panzoom/panzoom/dist/panzoom.min.js"></script>
+    <script src="js/image-processor.js"></script>
+    <script src="js/gallery.js"></script>
+</body>
+</html> 

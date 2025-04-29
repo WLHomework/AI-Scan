@@ -1,0 +1,591 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #202020;
+    --text-color: #ffffff;
+    --control-bg: rgba(40, 40, 40, 0.7);
+    --control-hover: rgba(70, 70, 70, 0.8);
+    --button-bg: rgba(255, 255, 255, 0.1);
+    --button-hover: rgba(255, 255, 255, 0.2);
+    --border-radius: 8px;
+    --toolbar-size: 40px;
+    --accent-color: #4985e6;
+    --accent-color-translucent: rgba(73, 133, 230, 0.5);
+    --scrollbar-track: rgba(30, 30, 30, 0.3);
+    --scrollbar-thumb: rgba(73, 133, 230, 0.4);
+    --scrollbar-thumb-hover: rgba(73, 133, 230, 0.7);
+}
+
+body {
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--bg-color);
+}
+
+/* Material Icons */
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 24;
+    font-size: 22px;
+}
+
+/* 标题栏样式 */
+.title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 32px;
+    padding: 0 16px;
+    background-color: rgba(32, 32, 32, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-app-region: drag;
+    z-index: 100;
+}
+
+.app-title {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.window-controls {
+    display: flex;
+    -webkit-app-region: no-drag;
+}
+
+.window-controls button {
+    width: 46px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.window-controls button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.close-btn:hover {
+    background-color: #e81123 !important;
+}
+
+/* 主内容区样式 */
+.main-content {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 侧边栏 */
+.sidebar {
+    width: 48px;
+    height: 100%;
+    background-color: rgba(30, 30, 30, 0.7);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 10;
+}
+
+.sidebar-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.sidebar-btn:hover {
+    background-color: var(--button-hover);
+}
+
+/* 预览区域样式 */
+.preview-area {
+    flex: 1;
+    background-color: #000000;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#preview, #processed-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* 预览覆盖层 */
+.preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    pointer-events: none;
+}
+
+/* 工具栏 */
+.toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: auto;
+}
+
+.left-toolbar {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.right-toolbar {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.toolbar-btn {
+    width: var(--toolbar-size);
+    height: var(--toolbar-size);
+    border-radius: 50%;
+    border: none;
+    background-color: var(--control-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.toolbar-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--control-bg);
+}
+
+.toolbar-btn:disabled:hover {
+    background-color: var(--control-bg);
+    transform: none;
+}
+
+.toolbar-btn:disabled .material-symbols-outlined {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* 添加禁用状态的提示样式 */
+.toolbar-btn:disabled::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.toolbar-btn:disabled:hover::after {
+    opacity: 1;
+    visibility: visible;
+    bottom: -35px;
+}
+
+.toolbar-btn .material-symbols-outlined {
+    transition: all 0.3s ease;
+}
+
+.toolbar-btn.timer-btn .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+    font-size: 20px;
+}
+
+/* 计时器数字样式 */
+.toolbar-btn.timer-btn[data-time="3"] .material-symbols-outlined,
+.toolbar-btn.timer-btn[data-time="10"] .material-symbols-outlined {
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.5px;
+}
+
+.toolbar-btn.timer-btn.active {
+    background-color: var(--button-hover);
+    transform: scale(1.05);
+}
+
+.toolbar-btn:hover {
+    background-color: var(--control-hover);
+}
+
+/* 底部控制区 */
+.bottom-controls {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin-top: auto;
+    pointer-events: auto;
+}
+
+/* 模式切换 */
+.mode-switch {
+    position: relative;
+    display: flex;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 24px;
+    padding: 4px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.mode-switch::before {
+    content: '';
+    position: absolute;
+    width: calc(33.33% - 8px);
+    height: calc(100% - 8px);
+    background: var(--accent-color);
+    border-radius: 20px;
+    left: 4px;
+    top: 4px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mode-switch .mode-btn {
+    flex: 1;
+    padding: 8px 12px;
+    color: rgba(255, 255, 255, 0.7);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+}
+
+.mode-switch .mode-btn .material-symbols-outlined {
+    font-size: 20px;
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.mode-switch .mode-btn.active {
+    color: #000;
+}
+
+.mode-switch .mode-btn.active .material-symbols-outlined {
+    transform: scale(1.1);
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* 添加滑块位置类 */
+.mode-switch[data-mode="photo"]::before {
+    transform: translateX(0);
+}
+
+.mode-switch[data-mode="video"]::before {
+    transform: translateX(100%);
+}
+
+.mode-switch[data-mode="scan"]::before {
+    transform: translateX(200%);
+}
+
+/* 预览区域过渡动画 */
+.preview-area {
+    position: relative;
+    overflow: hidden;
+}
+
+.preview-area::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.preview-area.switching::after {
+    opacity: 1;
+}
+
+/* 捕获区域 */
+.capture-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 16px;
+}
+
+.gallery-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background: black;
+    overflow: hidden;
+    cursor: pointer;
+    margin-right: auto;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+}
+
+.capture-btn {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+}
+
+.capture-btn-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: white;
+}
+
+/* 录制状态 */
+.capture-btn.recording .capture-btn-inner {
+    background-color: #e81123;
+}
+
+.spacer {
+    margin-left: auto;
+    width: 40px;
+}
+
+/* 通知样式 */
+.notification {
+    position: fixed;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(30, 30, 30, 0.9);
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: white;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.notification.show {
+    bottom: 20px;
+    opacity: 1;
+}
+
+/* 倒计时样式 */
+.countdown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+    z-index: 100;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* 相机闪光效果 */
+.camera-flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 0;
+    z-index: 99;
+    animation: flash 0.5s ease-out;
+}
+
+@keyframes flash {
+    0% { opacity: 0.8; }
+    100% { opacity: 0; }
+}
+
+/* 相机网格 */
+.camera-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 90;
+    background-image: 
+        /* 主网格线 */
+        linear-gradient(to right, rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+        /* 三分线 - 更粗 */
+        linear-gradient(to right, rgba(255, 255, 255, 0.8) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 2px, transparent 2px);
+    background-size: 
+        33.33% 33.33%,  /* 主网格大小 */
+        33.33% 33.33%,  /* 主网格大小 */
+        100% 33.33%,    /* 三分线横向 */
+        33.33% 100%;    /* 三分线纵向 */
+    background-position: 
+        0 0,    /* 主网格位置 */
+        0 0,    /* 主网格位置 */
+        0 0,    /* 三分线横向位置 */
+        0 0;    /* 三分线纵向位置 */
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3); /* 添加内阴影效果 */
+}
+
+/* 响应式布局调整 */
+@media (max-width: 768px) {
+    .toolbar-btn {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .capture-btn {
+        width: 58px;
+        height: 58px;
+    }
+    
+    .mode-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+    
+    .left-toolbar, .right-toolbar {
+        gap: 8px;
+    }
+}
+
+/* 录制状态指示器 */
+.capture-btn.recording::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 14px;
+    height: 14px;
+    background-color: #e81123;
+    border-radius: 50%;
+    border: 2px solid var(--bg-color);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+/* 视频旋转样式 */
+.preview-area.rotated-video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 确保容器在旋转时保持正确的定位上下文 */
+.preview-area {
+    position: relative;
+    overflow: hidden;
+}
+
+/* 旋转按钮激活状态 */
+#rotate-btn.active {
+    background-color: rgba(33, 150, 243, 0.3);
+}
+
+/* 旋转动画 */
+#preview, #processed-preview, #hidden-canvas {
+    transition: transform 0.3s ease;
+    transform-origin: center center;
+} 

@@ -1,0 +1,522 @@
+/* 设置页面的特定样式 */
+
+/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: var(--border-radius);
+    margin: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: var(--border-radius);
+    transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* 特定区域的滚动条样式 */
+.settings-content::-webkit-scrollbar,
+.settings-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.settings-content::-webkit-scrollbar-thumb,
+.settings-sidebar::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    min-height: 40px; /* 最小高度确保在内容少时滚动条把手仍然可见 */
+}
+
+.settings-content::-webkit-scrollbar-thumb:hover,
+.settings-sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+/* 确保iframe内的滚动条也应用相同样式 */
+iframe {
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); /* Firefox */
+}
+
+/* 平滑滚动效果 */
+.settings-content,
+.settings-sidebar,
+iframe,
+body,
+html {
+    scroll-behavior: smooth;
+}
+
+/* 确保所有可滚动区域在iOS上显示正确的滚动条 */
+.settings-content,
+.settings-sidebar,
+.modal-body,
+.dropdown-content {
+    -webkit-overflow-scrolling: touch;
+    /* 确保滚动容器有正确的overflow属性 */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* 额外增强滚动体验 */
+@media (hover: hover) {
+    /* 仅在支持悬停的设备上应用 */
+    .settings-content:hover::-webkit-scrollbar-thumb,
+    .settings-sidebar:hover::-webkit-scrollbar-thumb {
+        background: var(--scrollbar-thumb);
+    }
+
+    /* 默认状态下滚动条略微透明 */
+    .settings-content::-webkit-scrollbar-thumb,
+    .settings-sidebar::-webkit-scrollbar-thumb {
+        background: rgba(73, 133, 230, 0.3);
+    }
+}
+
+/* 标题栏中的返回按钮 */
+.back-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 4px;
+    margin-right: 10px;
+    border-radius: 4px;
+    -webkit-app-region: no-drag;
+}
+
+.back-button:hover {
+    background-color: var(--button-hover);
+}
+
+/* 设置容器 */
+.settings-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* 设置侧边栏 */
+.settings-sidebar {
+    width: 220px;
+    background-color: rgba(32, 32, 32, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 15px 8px;
+    overflow-y: auto;
+}
+
+.settings-nav-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 4px;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    text-align: left;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.settings-nav-item span:first-child {
+    margin-right: 12px;
+}
+
+.settings-nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.settings-nav-item.active {
+    background-color: var(--accent-color);
+}
+
+/* 设置内容区 */
+.settings-content {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    background-color: var(--bg-color);
+}
+
+/* 设置部分 */
+.settings-section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.settings-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.settings-section h2 {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    color: var(--text-color);
+}
+
+/* 设置组 */
+.settings-group {
+    background-color: rgba(45, 45, 45, 0.6);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+}
+
+.settings-group h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+/* 设置项 */
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 12px;
+}
+
+.setting-item:last-child {
+    margin-bottom: 0;
+}
+
+.setting-item label {
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+/* 控制元素样式 */
+.setting-control {
+    width: 220px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(30, 30, 30, 0.8);
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+select.setting-control {
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6"><path fill="white" d="M0 0l6 6 6-6z"/></svg>');
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    padding-right: 32px;
+}
+
+/* 路径选择器 */
+.path-selector {
+    display: flex;
+    width: 220px;
+}
+
+.path-selector .setting-control {
+    flex: 1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.browse-btn {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: none;
+    background-color: rgba(60, 60, 60, 0.8);
+    color: var(--text-color);
+    padding: 0 12px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    cursor: pointer;
+}
+
+.browse-btn:hover {
+    background-color: rgba(80, 80, 80, 0.8);
+}
+
+/* 开关样式 */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(80, 80, 80, 0.5);
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--accent-color);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--accent-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+.slider.round {
+    border-radius: 22px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* 滑块容器样式 */
+.setting-item .range-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 220px;
+}
+
+/* 滑块值文本样式 */
+#bitrate-value, #quality-value {
+    min-width: 45px;
+    text-align: right;
+    font-size: 14px;
+    color: var(--text-color);
+    font-weight: 500;
+    margin: 0;
+}
+
+/* 范围滑块样式 */
+input[type="range"].setting-control {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+    padding: 0;
+    border: none;
+    margin: 0;
+    
+    /* 自定义滑块的背景渐变，模拟填充效果 */
+    background-image: linear-gradient(var(--accent-color), var(--accent-color));
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
+}
+
+/* Webkit浏览器的滑块轨道样式 */
+input[type="range"].setting-control::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/* Webkit浏览器的滑块把手样式 */
+input[type="range"].setting-control::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    margin-top: -6px; /* 调整滑块垂直位置，使其居中在轨道上 */
+    transition: all 0.2s ease;
+}
+
+/* 滑块把手悬停状态 */
+input[type="range"].setting-control::-webkit-slider-thumb:hover {
+    background: #f0f0f0;
+    transform: scale(1.1);
+}
+
+/* 滑块把手激活状态 */
+input[type="range"].setting-control::-webkit-slider-thumb:active {
+    background: #e0e0e0;
+    transform: scale(1.2);
+}
+
+/* Firefox浏览器的滑块轨道样式 */
+input[type="range"].setting-control::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Firefox浏览器的填充样式 */
+input[type="range"].setting-control::-moz-range-progress {
+    height: 6px;
+    background-color: var(--accent-color);
+    border-radius: 3px;
+}
+
+/* Firefox浏览器的滑块把手样式 */
+input[type="range"].setting-control::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border: none;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Edge浏览器的滑块把手样式 */
+input[type="range"].setting-control::-ms-thumb {
+    width: 18px;
+    height: 18px;
+    border: none;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    margin-top: 0;
+}
+
+/* Edge浏览器的滑块轨道样式 */
+input[type="range"].setting-control::-ms-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+/* Edge浏览器的填充样式 */
+input[type="range"].setting-control::-ms-fill-lower {
+    background: var(--accent-color);
+    border-radius: 3px;
+}
+
+/* Edge浏览器的轨道背景样式 */
+input[type="range"].setting-control::-ms-fill-upper {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+/* 关于页面样式 */
+.about-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.app-logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 16px;
+}
+
+.app-logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.about-content h3 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.version {
+    font-size: 14px;
+    color: var(--text-color);
+    opacity: 0.7;
+    margin-bottom: 16px;
+}
+
+.description {
+    max-width: 500px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.about-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.secondary-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.secondary-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 相机视频预览区域 */
+.camera-preview-container {
+    position: absolute;
+    bottom: 60px;
+    left: 20px;
+    width: calc(100% - 32px);
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: #000;
+    margin-top: auto;
+}
+
+#settings-video-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+} 

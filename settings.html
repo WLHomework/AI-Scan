@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>相机设置</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/settings.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 标题栏 -->
+        <div class="title-bar">
+            <div class="back-button" id="back-button">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </div>
+            <div class="app-title">相机设置</div>
+            <div class="window-controls">
+                <!-- 去掉最小化和关闭按钮 -->
+            </div>
+        </div>
+
+        <!-- 设置内容区 -->
+        <div class="settings-container">
+            <div class="settings-sidebar">
+                <button class="settings-nav-item active" data-section="camera">
+                    <span class="material-symbols-outlined">photo_camera</span>
+                    <span>相机设置</span>
+                </button>
+                <button class="settings-nav-item" data-section="video">
+                    <span class="material-symbols-outlined">videocam</span>
+                    <span>视频设置</span>
+                </button>
+                <button class="settings-nav-item" data-section="photo">
+                    <span class="material-symbols-outlined">image</span>
+                    <span>照片设置</span>
+                </button>
+                <button class="settings-nav-item" data-section="about">
+                    <span class="material-symbols-outlined">info</span>
+                    <span>关于</span>
+                </button>
+                
+                <!-- 相机视频预览区域 -->
+                <div class="camera-preview-container">
+                    <video id="settings-video-preview" autoplay muted></video>
+                </div>
+            </div>
+            
+            <div class="settings-content">
+                <!-- 相机设置部分 -->
+                <div class="settings-section active" id="camera-section">
+                    <h2>相机设置</h2>
+                    
+                    <div class="settings-group">
+                        <h3>相机设备</h3>
+                        <div class="setting-item">
+                            <label for="camera-select">选择摄像头</label>
+                            <select id="camera-select" class="setting-control">
+                                <option value="default">默认摄像头</option>
+                                <!-- 其他摄像头将通过JavaScript动态添加 -->
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h3>图像质量</h3>
+                        <div class="setting-item">
+                            <label for="resolution-select">分辨率</label>
+                            <select id="resolution-select" class="setting-control">
+                                <option value="2.1MP 16:9">2.1MP 16:9 (1920x1080)</option>
+                                <option value="0.9MP 16:9">0.9MP 16:9 (1280x720)</option>
+                                <option value="5.0MP 4:3">5.0MP 4:3 (2592x1944)</option>
+                                <option value="3.1MP 4:3">3.1MP 4:3 (2048x1536)</option>
+                                <option value="1.9MP 4:3">1.9MP 4:3 (1600x1200)</option>
+                                <option value="0.8MP 4:3">0.8MP 4:3 (1024x768)</option>
+                                <option value="0.5MP 4:3">0.5MP 4:3 (800x600)</option>
+                                <option value="0.3MP 4:3">0.3MP 4:3 (640x480)</option>
+                                <option value="0.08MP 4:3">0.08MP 4:3 (320x240)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="framerate-select">帧率</label>
+                            <select id="framerate-select" class="setting-control">
+                                <option value="30">30 FPS</option>
+                                <option value="24">24 FPS</option>
+                                <option value="60">60 FPS</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h3>界面选项</h3>
+                        <div class="setting-item toggle">
+                            <label for="mirror-toggle">镜像预览</label>
+                            <label class="switch">
+                                <input type="checkbox" id="mirror-toggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item toggle">
+                            <label for="sound-toggle">拍摄音效</label>
+                            <label class="switch">
+                                <input type="checkbox" id="sound-toggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 视频设置部分 -->
+                <div class="settings-section" id="video-section">
+                    <h2>视频设置</h2>
+                    
+                    <div class="settings-group">
+                        <h3>录制选项</h3>
+                        <div class="setting-item">
+                            <label for="video-format">视频格式</label>
+                            <select id="video-format" class="setting-control">
+                                <option value="webm">WebM</option>
+                                <option value="mp4">MP4</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="video-quality">视频质量</label>
+                            <select id="video-quality" class="setting-control">
+                                <option value="high">高质量</option>
+                                <option value="medium">中等质量</option>
+                                <option value="low">低质量</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="video-bitrate">码率 (Mbps)</label>
+                            <div class="range-container">
+                                <input type="range" id="video-bitrate" min="1" max="20" value="8" class="setting-control range">
+                                <span id="bitrate-value">8 Mbps</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h3>音频选项</h3>
+                        <div class="setting-item toggle">
+                            <label for="audio-toggle">录制音频</label>
+                            <label class="switch">
+                                <input type="checkbox" id="audio-toggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="audio-device">音频设备</label>
+                            <select id="audio-device" class="setting-control">
+                                <option value="default">默认麦克风</option>
+                                <!-- 其他音频设备将通过JavaScript动态添加 -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 照片设置部分 -->
+                <div class="settings-section" id="photo-section">
+                    <h2>照片设置</h2>
+                    
+                    <div class="settings-group">
+                        <h3>图像选项</h3>
+                        <div class="setting-item">
+                            <label for="photo-format">图片格式</label>
+                            <select id="photo-format" class="setting-control">
+                                <option value="png">PNG</option>
+                                <option value="jpeg">JPEG</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label for="jpeg-quality">JPEG 质量</label>
+                            <div class="range-container">
+                                <input type="range" id="jpeg-quality" min="50" max="100" value="90" class="setting-control range">
+                                <span id="quality-value">90%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h3>保存选项</h3>
+                        <div class="setting-item">
+                            <label for="save-path">默认保存路径</label>
+                            <div class="path-selector">
+                                <input type="text" id="save-path" class="setting-control" value="Pictures/Camera" readonly>
+                                <button id="browse-btn" class="browse-btn">浏览</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item toggle">
+                            <label for="auto-save">自动保存</label>
+                            <label class="switch">
+                                <input type="checkbox" id="auto-save" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 关于部分 -->
+                <div class="settings-section" id="about-section">
+                    <h2>关于</h2>
+                    
+                    <div class="about-content">
+                        <div class="app-logo">
+                            <img src="assets/camera-icon.svg" alt="相机图标">
+                        </div>
+                        <h3>智能AI扫描仪</h3>
+                        <p class="version">版本 1.0.0</p>
+                        <p class="description">
+                            一个基于 NW.js 的智能AI扫描仪应用程序。
+                        </p>
+                        <p>
+                            © 2025 重庆市育才中学校，保留所有权利。
+                        </p>
+                        
+                        <div class="about-actions">
+                            <button id="check-update-btn" class="secondary-btn">支持作者</button>
+                            <button id="feedback-btn" class="secondary-btn">提供反馈</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/settings.js"></script>
+</body>
+</html> 
